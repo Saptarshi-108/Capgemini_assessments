@@ -1,9 +1,3 @@
-# Java OOP & Exception Handling Assignments
-
-This repository contains core Java design problems focused on Object-Oriented Programming principles, encapsulation, abstraction, polymorphism, and robust exception handling.
-
----
-
 ## 1. Secure Banking Transaction Engine
 
 ### Problem Statement
@@ -75,6 +69,9 @@ Demonstrate:
 - Submit a single .java file implementing the complete system.
 
 ---
+---
+
+
 
 ## 2. Employee Access and Payroll System
 
