@@ -1,4 +1,4 @@
-class SecureBankingEngine {
+public class SecureBankingEngine {
 
     public static void main(String[] args) {
         try {
@@ -32,8 +32,8 @@ class SecureBankingEngine {
 interface Transaction {
     void deposit(double amt) throws InvalidAmountException;
     void deposit(double amt, String mode) throws InvalidAmountException;
-    void withdraw(double amt);
-    void withdraw(double amt, String remarks);
+    void withdraw(double amt) throws InvalidAmountException;
+    void withdraw(double amt, String remarks) throws InvalidAmountException;
 }
 
 abstract class BankAccount implements Transaction {
@@ -75,11 +75,11 @@ abstract class BankAccount implements Transaction {
         setBalance(getBalance() + amt);
     }
 
-    public void withdraw(double amt) {
+    public void withdraw(double amt) throws InvalidAmountException {
         withdraw(amt, "NO REMARKS");
     }
 
-    public abstract void withdraw(double amt, String remarks);
+    public abstract void withdraw(double amt, String remarks) throws InvalidAmountException;
 }
 
 class SavingsAccount extends BankAccount {
@@ -88,10 +88,8 @@ class SavingsAccount extends BankAccount {
         super(accNo, name, bal);
     }
 
-    public void withdraw(double amt, String remarks) {
-        if (amt <= 0) {
-            throw new InvalidAmountException("Invalid withdrawal amount");
-        }
+    public void withdraw(double amt, String remarks) throws InvalidAmountException {
+        validateAmount(amt);
         if (amt > getBalance()) {
             throw new InsufficientBalanceException("Savings account insufficient balance");
         }
@@ -107,10 +105,8 @@ class CurrentAccount extends BankAccount {
         super(accNo, name, bal);
     }
 
-    public void withdraw(double amt, String remarks) {
-        if (amt <= 0) {
-            throw new InvalidAmountException("Invalid withdrawal amount");
-        }
+    public void withdraw(double amt, String remarks) throws InvalidAmountException {
+        validateAmount(amt);
         if (amt > getBalance() + overdraftLimit) {
             throw new InsufficientBalanceException("Current account overdraft limit exceeded");
         }
