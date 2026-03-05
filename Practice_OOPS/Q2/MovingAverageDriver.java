@@ -27,7 +27,7 @@ public class MovingAverageDriver<T extends Number> implements MovingAverage<T> {
 	 }
 	 double sum=0d;
 	 for (T i:values) {
-		 sum+=(double)i;
+		 sum+=i.doubleValue();
 	 }
 	 return sum/values.size();
  }
